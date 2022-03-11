@@ -51,7 +51,7 @@ def current_tech(survey_data):
     return topten_lan_df,topten_db_df,platform_df,topten_dwf_df
 
 
-# In[3]:
+# In[18]:
 
 
 def plot_wordcloud(platform_df): 
@@ -60,14 +60,7 @@ def plot_wordcloud(platform_df):
     return wc.to_image()
 
 
-# In[4]:
-
-
-survey_data =  pd.read_csv('m5_survey_data_technologies_normalised.csv')
-survey_data.info()
-
-
-# In[5]:
+# In[20]:
 
 
 survey_data =  pd.read_csv('m5_survey_data_technologies_normalised.csv')
@@ -80,13 +73,10 @@ topten_dwf_df.reset_index(inplace =True)
 topten_dwf_df.rename(columns = {'Respondent':'Num3'},inplace = True)
 current_tech_df = pd.concat([topten_lan_df, topten_db_df, topten_dwf_df], axis = 1)
 
-current_tech_df.to_csv('Current_Tech.csv')
-platform_df.to_csv('Current_platform.csv')
-
 
 # ## Future Technology Trend 
 
-# In[6]:
+# In[21]:
 
 
 def future_tech(survey_data):
@@ -119,7 +109,7 @@ def future_tech(survey_data):
     return topten_future_lan_df,topten_fut_db_df,f_platform_df,topten_f_wf_df
 
 
-# In[7]:
+# In[22]:
 
 
 topten_future_lan_df,topten_fut_db_df,f_platform_df,topten_f_wf_df = future_tech(survey_data)
@@ -134,13 +124,10 @@ topten_f_wf_df.rename(columns = {'Respondent':'Num3'},inplace = True)
 
 future_tech_df = pd.concat([topten_future_lan_df,topten_fut_db_df,topten_f_wf_df], axis = 1)
 
-future_tech_df.to_csv('Future_Tech.csv')
-f_platform_df.to_csv('Futre_platform.csv')
-
 
 # ## Demographics
 
-# In[8]:
+# In[23]:
 
 
 def demographics(demo_data):
@@ -169,18 +156,14 @@ def demographics(demo_data):
     return gender_df1,country_df,age_df, edu_df
 
 
-# In[9]:
+# In[24]:
 
 
 demo_data =  pd.read_csv('m5_survey_data_demographics.csv')
 gender_df1,country_df,age_df, edu_df = demographics(demo_data)
-gender_df1.to_csv('Survey_gender.csv')
-country_df.to_csv('Survey_country.csv')
-age_df.to_csv('Survey_age.csv')
-edu_df.to_csv('Survey_eduLevel.csv')
 
 
-# In[10]:
+# In[25]:
 
 
 #function to convert to alpah2 country codes and continents
@@ -196,7 +179,7 @@ def get_continent(col):
     return (cn_a2_code, cn_continent)
 
 
-# In[11]:
+# In[26]:
 
 
 def country_code(country_df):
@@ -214,7 +197,7 @@ def country_code(country_df):
 
 # ## Dashboard
 
-# In[12]:
+# In[27]:
 
 
 app = JupyterDash(__name__)
@@ -222,7 +205,7 @@ app.title = "Technology Survey 2019"
 server = app.server
 
 
-# In[13]:
+# In[28]:
 
 
 app.layout = html.Div([            
@@ -263,7 +246,7 @@ app.layout = html.Div([
 ])
 
 
-# In[14]:
+# In[29]:
 
 
 @app.callback([               
@@ -362,10 +345,11 @@ def draw_graph(report_type):
     
 
 
-# In[15]:
+# In[30]:
 
 
-app.run_server(mode="external")
+if __name__ == '__main__':
+    app.run_server(use_reloader=False, debug=True)
 
 
 # In[ ]:
