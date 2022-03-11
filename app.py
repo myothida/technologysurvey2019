@@ -218,6 +218,8 @@ def country_code(country_df):
 
 
 app = JupyterDash(__name__)
+app.title = "Technology Survey 2019"
+server = app.server
 
 
 # In[13]:
